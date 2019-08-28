@@ -2,21 +2,17 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class Car extends Model
 {
-    use Notifiable;
-
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'birthday'
+        'user_id'
     ];
 
     /**
@@ -34,18 +30,16 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'name' => 'string',
-        'birthday' => 'date',
         'created_at' => 'timestamp',
         'updated_at' => 'timestamp'
     ];
 
     /**
-     * Get the Cars for the User.
+     * Get the User for the Car.
      */
-    public function cars()
+    public function user()
     {
-        return $this->hasMany(\App\Car::class);
+        return $this->belongsTo(\App\User::class);
     }
 
 }
